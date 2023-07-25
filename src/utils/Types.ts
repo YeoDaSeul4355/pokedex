@@ -1,11 +1,13 @@
 export interface AppTypeInitialState {
   toasts: string[];
+  userInfo: undefined | { email: string };
 }
 
 export interface PokemonInitialStateType {
   allPokemon: undefined | genericPokemonType[];
   randomPokemons: generatedPokemonType[] | undefined;
   compareQueue: generatedPokemonType[];
+  userPokemons: userPokemonsType[];
 }
 
 export interface genericPokemonType {
@@ -40,6 +42,10 @@ export type pokemonStatType =
   | "strength"
   | "resistance";
 
+export interface pokemonStatsType {
+  name: string;
+  value: string;
+}
 export type pokemonElementType =
   | "bug"
   | "dark"
