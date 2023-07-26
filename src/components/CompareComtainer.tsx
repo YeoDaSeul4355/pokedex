@@ -163,7 +163,7 @@ function CompareComtainer({
             </button>
             <button
               className="compare-btn"
-              onClick={() => navigate(`/pokemon/${pokemon.id}`)}
+              onClick={() => navigate(`/pokemon/${pokemon?.id}`)}
             >
               View
             </button>
