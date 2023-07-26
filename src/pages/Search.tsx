@@ -6,6 +6,7 @@ import { getInitialPokemonData } from "../app/reducers/getInitialPokemonData";
 import { getPokemonData } from "../app/reducers/getPokemonData";
 import PokemonCardGrid from "../components/PokemonCardGrid";
 import { debounce } from "../utils/Debounce";
+import Loader from "../components/Loader";
 
 function Search() {
   const dispatch = useAppDispatch();

@@ -4,13 +4,15 @@ import React from "react";
 import { IoGitCompare } from "react-icons/io5";
 import { FaPlus, FaTrash } from "react-icons/fa";
 
-import { addToCompare } from "../app/slices/PokemonSlice";
+import { addToCompare, setCurrentPokemon } from "../app/slices/PokemonSlice";
 
 import { useAppDispatch } from "../app/hooks";
 import { pokemonTypeInterface, userPokemonsType } from "../utils/Types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setToast } from "../app/slices/AppSlice";
+import { setPokemonTab, setToast } from "../app/slices/AppSlice";
 import { addPokemonToList } from "../app/reducers/addPokemonToList";
+import { removePokemon } from "../app/reducers/removePokemonFromUserList";
+import { pokemonTabs } from "../utils/Constants";
 
 function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
   const dispatch = useAppDispatch();
@@ -33,7 +35,13 @@ function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
                       onClick={() => dispatch(addPokemonToList(data))}
                     />
                   ) : (
-                    <FaTrash className="trash" />
+                    <FaTrash
+                      className="trash"
+                      onClick={async () => {
+                        await dispatch(removePokemon({ id: data.firebaseId! }));
+                        dispatch(setToast("Pokemon remoced successfully."));
+                      }}
+                    />
                   )}
                 </div>
                 <div className="pokemon-card-compare">
@@ -54,13 +62,17 @@ function PokemonCardGrid({ pokemons }: { pokemons: userPokemonsType[] }) {
                   alt="pokemon"
                   className="pokemon-card-image"
                   loading="lazy"
-                  onClick={() => navigate(`/pokemon/${data.id}`)}
+                  onClick={() => {
+                    dispatch(setPokemonTab(pokemonTabs.description));
+                    dispatch(setCurrentPokemon(undefined));
+                    navigate(`/pokemon/${data.id}`);
+                  }}
                 />
                 <div className="pokemon-card-types">
                   {data.types.map(
                     (type: pokemonTypeInterface, index: number) => {
                       const keys = Object.keys(type);
-                      console.log(keys);
+                      // console.log(keys);
                       return (
                         <div className="pokemon-card-types-type" key={index}>
                           <img

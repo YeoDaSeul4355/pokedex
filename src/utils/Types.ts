@@ -1,6 +1,8 @@
 export interface AppTypeInitialState {
-  toasts: string[];
+  isLoading: boolean;
   userInfo: undefined | { email: string };
+  toasts: string[];
+  currentPokemonTab: string;
 }
 
 export interface PokemonInitialStateType {
@@ -8,6 +10,7 @@ export interface PokemonInitialStateType {
   randomPokemons: generatedPokemonType[] | undefined;
   compareQueue: generatedPokemonType[];
   userPokemons: userPokemonsType[];
+  currentPokemon: undefined | currentPokemonType;
 }
 
 export interface genericPokemonType {
@@ -22,6 +25,27 @@ export interface generatedPokemonType {
   types: pokemonTypeInterface[];
 }
 
+export interface userPokemonsType extends generatedPokemonType {
+  firebaseId?: string;
+}
+
+export interface currentPokemonType {
+  id: number;
+  name: string;
+  types: pokemonTypeInterface[];
+  image: string;
+  stats: pokemonStatsType[];
+  encounters: string[];
+  evolutionLevel: number;
+  evolution: { level: number; pokemon: { name: string; url: string } }[];
+  pokemonAbilities: { abilities: string[]; moves: string[] };
+}
+
+export interface pokemonStatsType {
+  name: string;
+  value: string;
+}
+
 export interface pokemonTypeInterface {
   [key: string]: {
     image: string;
@@ -32,20 +56,12 @@ export interface pokemonTypeInterface {
   };
 }
 
-export interface userPokemonsType extends generatedPokemonType {
-  firebaseId?: string;
-}
-
 export type pokemonStatType =
   | "vulnerable"
   | "weakness"
   | "strength"
   | "resistance";
 
-export interface pokemonStatsType {
-  name: string;
-  value: string;
-}
 export type pokemonElementType =
   | "bug"
   | "dark"

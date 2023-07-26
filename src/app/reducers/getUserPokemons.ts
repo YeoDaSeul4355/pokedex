@@ -3,7 +3,7 @@ import { userPokemonsType } from "../../utils/Types";
 import { pokemonListRef } from "../../utils/FirebaseConfig";
 import { getDocs, query, where } from "firebase/firestore";
 import { defaultImages, images } from "../../utils/getPokemonImage";
-import { pokemonTypes } from "../../utils/getPokemonTypes";
+import { pokemonTypes } from "../../utils/pokemonTypes";
 import { RootState } from "../store";
 export const getUserPokemons = createAsyncThunk(
   "pokemon/userList",

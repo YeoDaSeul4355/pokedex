@@ -5,10 +5,11 @@ import {
   userPokemonsType,
 } from "../utils/Types";
 import { FaPlus } from "react-icons/fa";
-import { pokemonTypes } from "../utils/getPokemonTypes";
+import { pokemonTypes } from "../utils/pokemonTypes";
 import { removeFromCompare } from "../app/slices/PokemonSlice";
 import { useAppDispatch } from "../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { addPokemonToList } from "../app/reducers/addPokemonToList";
 
 function CompareComtainer({
   pokemon = undefined,
@@ -28,7 +29,7 @@ function CompareComtainer({
     const statsSet = new Set<string>();
     types.forEach((type: pokemonTypeInterface) => {
       const key = Object.keys(type)[0];
-      console.log({ type });
+      // console.log({ type });
       type[key][statType].forEach((stat: string) => {
         if (!statsSet.has(stat)) {
           // @ts-ignore
@@ -154,7 +155,12 @@ function CompareComtainer({
             </div>
           </div>
           <div className="compare-action-buttons">
-            <button className="compare-btn">Add</button>
+            <button
+              className="compare-btn"
+              onClick={() => dispatch(addPokemonToList(pokemon))}
+            >
+              Add
+            </button>
             <button
               className="compare-btn"
               onClick={() => navigate(`/pokemon/${pokemon.id}`)}
